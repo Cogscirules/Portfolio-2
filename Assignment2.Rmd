@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(pacman)
 
-p_load(stringr, dplyr, rethinking)
+p_load(stringr, dplyr, rethinking, ggplot2, gridExtra)
 ```
 
 ## In this assignment we learn how to assess rates from a binomial distribution, using the case of assessing your teachers' knowledge of CogSci
@@ -466,7 +466,7 @@ Mik_data= data.frame(grid=M_grid,posterior=posterior,prior=prior,likelihood=like
 
 ggplot(Mik_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
 
-
+#same as josh, maybe a slight bit worse
 
 
 #Ric = 3/6
@@ -497,14 +497,28 @@ Ric_data= data.frame(grid=p_grid,posterior=posterior,prior=prior,likelihood=like
 
 ggplot(Ric_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
 
+#Riccardo shows a very average knowledge, but much below our prior (what we expect of our teacher)
 
 
+#Why?
+#Collecting more data makes you more 
+
+
+
+#seeing the plots together
+
+gridExtra::grid.arrange(Kri_data, Jos_data, Mik_data, Ric_data)
+#Doesn't work?
 
 ```
 
 5. Imagine you're a skeptic and think your teachers do not know anything about CogSci, given the content of their classes. How would you operationalize that belief?
 
 ```{r setup, include=FALSE}
+
+#I would lower the prior to chance level, since teachers knowledge should be above chance to be recognized as knowledgeable. 
+
+
 
 ```
 
