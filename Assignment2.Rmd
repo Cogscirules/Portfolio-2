@@ -31,29 +31,6 @@ This is the data:
 - Mikkel: 66 correct answers out of 132 questions
 
 
-```{r setup, include=FALSE}
-#Riccardo data
-Ric = data.frame(matrix(0, ncol = 6, nrow = 1))
-Ric[1:3] = 1;Ric
-colnames(Ric)[1:6] = "answer"
-
-#Kristian data
-Kri = data.frame(matrix(0, ncol = 2, nrow =1))
-Kri[1:2] = 1;Kri
-colnames(Kri)[1:2] = "answer"
-
-#Josh data
-Jos = data.frame(matrix(0, ncol = 198, nrow =1))
-Jos[1:160] = 1;Jos
-colnames(Jos)[1:198] = "answer"
-
-#Mikkel data
-Mik = data.frame(matrix(0, ncol = 132, nrow =1))
-Mik[1:66] = 1;Mik
-colnames(Mik)[1:132] = "answer"
-
-```
-
 Questions:
 
 1. What's Riccardo's estimated knowledge of CogSci? What is the probability he knows more than chance (0.5) [try figuring this out. if you can't peek into chapters 3.1 and 3.2 and/or the slides]?
@@ -63,7 +40,51 @@ Questions:
 
 ```{r setup, include=FALSE}
  
+#Grid approximation code - considering only a finite grid of parameter values to achieve approximation og the posterior
 
+#Ric = 3/6
+
+dens = 100
+#define grid
+p_grid = seq(from=0, to = 1, length.out = dens)
+
+#define prior
+prior = rep(1,100)
+
+#compute/define likelihood at eah value in grid
+likelihood = dbinom(3, size=6, prob=p_grid)
+
+#compute the product og the prior
+unstd_posterior = likelihood * prior
+
+#standardize posterior so it sums to 1
+posterior = unstd_posterior/sum(unstd_posterior)
+
+
+#replicate different priors
+#prior = ifelse(grid <0.5,0,1)
+#prior = exp(-5*abs(grid-0.5))
+
+
+Data= data.frame(grid=p_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+ggplot(Data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+
+
+
+#Implement quadratic approximation
+Ric = map(
+alist(
+w ~ dbinom(6,p) , # binomial likelihood
+p ~ dunif(0,1) # uniform prior
+) ,
+data=list(w=3) )
+# display summary of quadratic approximation
+precis( Ric )
+
+
+#How much posterior falls below 50 %
+sum(posterior[p_grid <0.5])
+# 50 % chance on both sides. Bigger chance that he knows less and more.
 
 ```
 
@@ -71,12 +92,166 @@ Questions:
 2. Estimate all the teachers' knowledge of CogSci. Who's best? Use grid approximation. Comment on the posteriors of Riccardo and Mikkel.
 2a. Produce plots of the prior, and posterior for each teacher.
 
+```{r setup, include=FALSE}
+
+#Kri = 2/2
+
+dens = 100
+#define grid
+k_grid = seq(from=0, to = 1, length.out = dens)
+
+#define prior
+prior = rep(1,100)
+
+#compute/define likelihood at eah value in grid
+likelihood = dbinom(2, size=2, prob=k_grid)
+
+#compute the product og the prior
+unstd_posterior = likelihood * prior
+
+#standardize posterior so it sums to 1
+posterior = unstd_posterior/sum(unstd_posterior)
+
+
+#replicate different priors
+#prior = ifelse(grid <0.5,0,1)
+#prior = exp(-5*abs(grid-0.5))
+
+
+Data= data.frame(grid=k_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+ggplot(Data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+
+
+#Implement quadratic approximation
+Kri = map(
+alist(
+w ~ dbinom(2,p) , # binomial likelihood
+p ~ dunif(0,1) # uniform prior
+) ,
+data=list(w=2) )
+# display summary of quadratic approximation
+precis( Kri )
+
+
+#How much posterior falls below 50 %
+sum(posterior[k_grid <0.5])
+# 12 % chance on both sides. So chances are high that he has absolute cogsci superpowers, but also that a man knows nothing. 
+
+
+
+#Josh = 160/198
+
+dens = 100
+#define grid
+J_grid = seq(from=0, to = 1, length.out = dens)
+
+#define prior
+prior = rep(1,100)
+
+#compute/define likelihood at eah value in grid
+likelihood = dbinom(160, size=198, prob=J_grid)
+
+#compute the product og the prior
+unstd_posterior = likelihood * prior
+
+#standardize posterior so it sums to 1
+posterior = unstd_posterior/sum(unstd_posterior)
+
+
+#replicate different priors
+#prior = ifelse(grid <0.5,0,1)
+#prior = exp(-5*abs(grid-0.5))
+
+
+Data= data.frame(grid=J_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+ggplot(Data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+
+
+#Implement quadratic approximation
+Jos = map(
+alist(
+w ~ dbinom(198,p) , # binomial likelihood
+p ~ dunif(0,1) # uniform prior
+) ,
+data=list(w=160) )
+# display summary of quadratic approximation
+precis( Jos )
+
+
+#How much posterior falls below 50 %
+sum(posterior[J_grid <0.5])
+# VERY low chance that Josh has absolute superpowers, but also that he knows nothing. Very stable teacher.
+
+
+
+#Mik = 66/132
+
+dens = 100
+#define grid
+M_grid = seq(from=0, to = 1, length.out = dens)
+
+#define prior
+prior = rep(1,100)
+
+#compute/define likelihood at eah value in grid
+likelihood = dbinom(66, size=132, prob=M_grid)
+
+#compute the product og the prior
+unstd_posterior = likelihood * prior
+
+#standardize posterior so it sums to 1
+posterior = unstd_posterior/sum(unstd_posterior)
+
+
+#replicate different priors
+#prior = ifelse(grid <0.5,0,1)
+#prior = exp(-5*abs(grid-0.5))
+
+
+Data= data.frame(grid=M_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+ggplot(Data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+
+
+#Implement quadratic approximation
+Mik = map(
+alist(
+w ~ dbinom(6,p) , # binomial likelihood
+p ~ dunif(0,1) # uniform prior
+) ,
+data=list(w=3) )
+# display summary of quadratic approximation
+precis( Mik )
+
+
+#How much posterior falls below 50 %
+sum(posterior[M_grid <0.5])
+# 50 % chance on both sides. Chances of falling above or below 50 is much less than Ric, so very stable at 50 % whereas Ric cn be VERY good but can also be VERY bad where Mik stays 50 %.
+
+
+
+
+```
+
+
 3. Change the prior. Given your teachers have all CogSci jobs, you should start with a higher appreciation of their knowledge: the prior is a normal distribution with a mean of 0.8 and a standard deviation of 0.2. Do the results change (and if so how)?
 3a. Produce plots of the prior and posterior for each teacher.
 
+```{r setup, include=FALSE}
+
+```
+
 4. You go back to your teachers and collect more data (multiply the previous numbers by 100). Calculate their knowledge with both a uniform prior and a normal prior with a mean of 0.8 and a standard deviation of 0.2. Do you still see a difference between the results? Why?
 
+```{r setup, include=FALSE}
+
+```
+
 5. Imagine you're a skeptic and think your teachers do not know anything about CogSci, given the content of their classes. How would you operationalize that belief?
+
+```{r setup, include=FALSE}
+
+```
+
 
 6. Optional question: Can you estimate the difference between Riccardo's estimated knowledge and that of each of the other teachers? Would you deem it credible (that is, would you believe that it is actually different)?
 
