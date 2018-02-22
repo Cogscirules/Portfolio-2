@@ -66,8 +66,9 @@ posterior = unstd_posterior/sum(unstd_posterior)
 #prior = exp(-5*abs(grid-0.5))
 
 
-Data= data.frame(grid=p_grid,posterior=posterior,prior=prior,likelihood=likelihood)
-ggplot(Data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+Ric_data= data.frame(grid=p_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+
+ggplot(Ric_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
 
 
 
@@ -118,8 +119,9 @@ posterior = unstd_posterior/sum(unstd_posterior)
 #prior = exp(-5*abs(grid-0.5))
 
 
-Data= data.frame(grid=k_grid,posterior=posterior,prior=prior,likelihood=likelihood)
-ggplot(Data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+Kri_data= data.frame(grid=k_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+
+ggplot(Kri_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
 
 
 #Implement quadratic approximation
@@ -163,8 +165,9 @@ posterior = unstd_posterior/sum(unstd_posterior)
 #prior = exp(-5*abs(grid-0.5))
 
 
-Data= data.frame(grid=J_grid,posterior=posterior,prior=prior,likelihood=likelihood)
-ggplot(Data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+Jos_data= data.frame(grid=J_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+
+ggplot(Jos_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
 
 
 #Implement quadratic approximation
@@ -180,7 +183,7 @@ precis( Jos )
 
 #How much posterior falls below 50 %
 sum(posterior[J_grid <0.5])
-# VERY low chance that Josh has absolute superpowers, but also that he knows nothing. Very stable teacher.
+# VERY low chance that Josh has absolute superpowers, but also that he knows nothing. Very stable teacher. aPeak past 50. 
 
 
 
@@ -208,8 +211,9 @@ posterior = unstd_posterior/sum(unstd_posterior)
 #prior = exp(-5*abs(grid-0.5))
 
 
-Data= data.frame(grid=M_grid,posterior=posterior,prior=prior,likelihood=likelihood)
-ggplot(Data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+Mik_data= data.frame(grid=M_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+
+ggplot(Mik_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
 
 
 #Implement quadratic approximation
@@ -230,6 +234,9 @@ sum(posterior[M_grid <0.5])
 
 
 
+
+#more skeptic = lower the priorm or assume a normal distribution
+
 ```
 
 
@@ -238,11 +245,260 @@ sum(posterior[M_grid <0.5])
 
 ```{r setup, include=FALSE}
 
+#Kristian
+
+dens = 100
+#define grid
+k_grid = seq(from=0, to = 1, length.out = dens)
+
+#define prior, assume normality and change mean to 0.8 and sd to 0.2
+prior = dnorm(k_grid, mean = 0.8, sd = 0.2)
+
+#compute/define likelihood at eah value in grid
+likelihood = dbinom(2, size=2, prob=k_grid)
+
+#compute the product og the prior
+unstd_posterior = likelihood * prior
+
+#standardize posterior so it sums to 1
+posterior = unstd_posterior/sum(unstd_posterior)
+
+
+#replicate different priors
+#prior = ifelse(grid <0.5,0,1)
+#prior = exp(-5*abs(grid-0.5))
+
+
+Kri_data= data.frame(grid=k_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+
+ggplot(Kri_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+
+
+
+
+#Josh = 160/198
+
+dens = 100
+#define grid
+J_grid = seq(from=0, to = 1, length.out = dens)
+
+#define prior
+prior = dnorm(J_grid, mean = 0.8, sd = 0.2)
+
+#compute/define likelihood at eah value in grid
+likelihood = dbinom(160, size=198, prob=J_grid)
+
+#compute the product og the prior
+unstd_posterior = likelihood * prior
+
+#standardize posterior so it sums to 1
+posterior = unstd_posterior/sum(unstd_posterior)
+
+
+#replicate different priors
+#prior = ifelse(grid <0.5,0,1)
+#prior = exp(-5*abs(grid-0.5))
+
+
+Jos_data= data.frame(grid=J_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+
+ggplot(Jos_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+
+
+
+#Mik = 66/132
+
+dens = 100
+#define grid
+M_grid = seq(from=0, to = 1, length.out = dens)
+
+#define prior
+prior = dnorm(M_grid, mean = 0.8, sd = 0.2)
+
+#compute/define likelihood at eah value in grid
+likelihood = dbinom(66, size=132, prob=M_grid)
+
+#compute the product og the prior
+unstd_posterior = likelihood * prior
+
+#standardize posterior so it sums to 1
+posterior = unstd_posterior/sum(unstd_posterior)
+
+
+#replicate different priors
+#prior = ifelse(grid <0.5,0,1)
+#prior = exp(-5*abs(grid-0.5))
+
+
+Mik_data= data.frame(grid=M_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+
+ggplot(Mik_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+
+
+
+
+#Ric = 3/6
+
+dens = 100
+#define grid
+p_grid = seq(from=0, to = 1, length.out = dens)
+
+#define prior
+prior = dnorm(p_grid, mean = 0.8, sd = 0.2)
+
+#compute/define likelihood at eah value in grid
+likelihood = dbinom(3, size=6, prob=p_grid)
+
+#compute the product og the prior
+unstd_posterior = likelihood * prior
+
+#standardize posterior so it sums to 1
+posterior = unstd_posterior/sum(unstd_posterior)
+
+
+#replicate different priors
+#prior = ifelse(grid <0.5,0,1)
+#prior = exp(-5*abs(grid-0.5))
+
+
+Ric_data= data.frame(grid=p_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+
+ggplot(Ric_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+
+
+
 ```
 
 4. You go back to your teachers and collect more data (multiply the previous numbers by 100). Calculate their knowledge with both a uniform prior and a normal prior with a mean of 0.8 and a standard deviation of 0.2. Do you still see a difference between the results? Why?
 
 ```{r setup, include=FALSE}
+
+#Kristian
+
+dens = 100
+#define grid
+k_grid = seq(from=0, to = 1, length.out = dens)
+
+#define prior, assume normality and change mean to 0.8 and sd to 0.2
+prior = dnorm(k_grid, mean = 0.8, sd = 0.2)
+
+#compute/define likelihood at eah value in grid
+likelihood = dbinom(200, size=200, prob=k_grid)
+
+#compute the product og the prior
+unstd_posterior = likelihood * prior
+
+#standardize posterior so it sums to 1
+posterior = unstd_posterior/sum(unstd_posterior)
+
+
+#replicate different priors
+#prior = ifelse(grid <0.5,0,1)
+#prior = exp(-5*abs(grid-0.5))
+
+
+Kri_data= data.frame(grid=k_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+
+ggplot(Kri_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+
+
+#Kristian seems to be extremely knowledgeable unless we assume he cheated
+
+
+
+#Josh = 160/198
+
+dens = 100
+#define grid
+J_grid = seq(from=0, to = 1, length.out = dens)
+
+#define prior
+prior = dnorm(J_grid, mean = 0.8, sd = 0.2)
+
+#compute/define likelihood at eah value in grid
+likelihood = dbinom(16000, size=19800, prob=J_grid)
+
+#compute the product og the prior
+unstd_posterior = likelihood * prior
+
+#standardize posterior so it sums to 1
+posterior = unstd_posterior/sum(unstd_posterior)
+
+
+#replicate different priors
+#prior = ifelse(grid <0.5,0,1)
+#prior = exp(-5*abs(grid-0.5))
+
+
+Jos_data= data.frame(grid=J_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+
+ggplot(Jos_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+
+#Josh has even more certainty in his abilities (or lack of in comparison with kristian)
+
+
+
+#Mik = 66/132
+
+dens = 100
+#define grid
+M_grid = seq(from=0, to = 1, length.out = dens)
+
+#define prior
+prior = dnorm(M_grid, mean = 0.8, sd = 0.2)
+
+#compute/define likelihood at eah value in grid
+likelihood = dbinom(6600, size=13200, prob=M_grid)
+
+#compute the product og the prior
+unstd_posterior = likelihood * prior
+
+#standardize posterior so it sums to 1
+posterior = unstd_posterior/sum(unstd_posterior)
+
+
+#replicate different priors
+#prior = ifelse(grid <0.5,0,1)
+#prior = exp(-5*abs(grid-0.5))
+
+
+Mik_data= data.frame(grid=M_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+
+ggplot(Mik_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+
+
+
+
+#Ric = 3/6
+
+dens = 100
+#define grid
+p_grid = seq(from=0, to = 1, length.out = dens)
+
+#define prior
+prior = dnorm(p_grid, mean = 0.8, sd = 0.2)
+
+#compute/define likelihood at eah value in grid
+likelihood = dbinom(300, size=600, prob=p_grid)
+
+#compute the product og the prior
+unstd_posterior = likelihood * prior
+
+#standardize posterior so it sums to 1
+posterior = unstd_posterior/sum(unstd_posterior)
+
+
+#replicate different priors
+#prior = ifelse(grid <0.5,0,1)
+#prior = exp(-5*abs(grid-0.5))
+
+
+Ric_data= data.frame(grid=p_grid,posterior=posterior,prior=prior,likelihood=likelihood)
+
+ggplot(Ric_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+
+
+
 
 ```
 
