@@ -68,7 +68,7 @@ posterior = unstd_posterior/sum(unstd_posterior)
 
 Ric_data= data.frame(grid=p_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Ric_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+ggplot(Ric_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")
 
 
 
@@ -121,7 +121,7 @@ posterior = unstd_posterior/sum(unstd_posterior)
 
 Kri_data= data.frame(grid=k_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Kri_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+ggplot(Kri_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")
 
 
 #Implement quadratic approximation
@@ -167,7 +167,7 @@ posterior = unstd_posterior/sum(unstd_posterior)
 
 Jos_data= data.frame(grid=J_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Jos_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+ggplot(Jos_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")
 
 
 #Implement quadratic approximation
@@ -213,16 +213,16 @@ posterior = unstd_posterior/sum(unstd_posterior)
 
 Mik_data= data.frame(grid=M_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Mik_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+ggplot(Mik_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")
 
 
 #Implement quadratic approximation
 Mik = map(
 alist(
-w ~ dbinom(6,p) , # binomial likelihood
+w ~ dbinom(132,p) , # binomial likelihood
 p ~ dunif(0,1) # uniform prior
 ) ,
-data=list(w=3) )
+data=list(w=66) )
 # display summary of quadratic approximation
 precis( Mik )
 
@@ -232,10 +232,6 @@ sum(posterior[M_grid <0.5])
 # 50 % chance on both sides. Chances of falling above or below 50 is much less than Ric, so very stable at 50 % whereas Ric cn be VERY good but can also be VERY bad where Mik stays 50 %.
 
 
-
-
-
-#more skeptic = lower the priorm or assume a normal distribution
 
 ```
 
@@ -271,7 +267,7 @@ posterior = unstd_posterior/sum(unstd_posterior)
 
 Kri_data= data.frame(grid=k_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Kri_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+ggplot(Kri_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")
 
 
 
@@ -302,7 +298,7 @@ posterior = unstd_posterior/sum(unstd_posterior)
 
 Jos_data= data.frame(grid=J_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Jos_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+ggplot(Jos_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")
 
 
 
@@ -332,7 +328,7 @@ posterior = unstd_posterior/sum(unstd_posterior)
 
 Mik_data= data.frame(grid=M_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Mik_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+ggplot(Mik_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")
 
 
 
@@ -363,7 +359,7 @@ posterior = unstd_posterior/sum(unstd_posterior)
 
 Ric_data= data.frame(grid=p_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Ric_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+ggplot(Ric_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")
 
 
 
@@ -399,7 +395,7 @@ posterior = unstd_posterior/sum(unstd_posterior)
 
 Kri_data= data.frame(grid=k_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Kri_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+ggplot(Kri_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")
 
 
 #Kristian seems to be extremely knowledgeable unless we assume he cheated
@@ -432,7 +428,7 @@ posterior = unstd_posterior/sum(unstd_posterior)
 
 Jos_data= data.frame(grid=J_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Jos_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+ggplot(Jos_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")
 
 #Josh has even more certainty in his abilities (or lack of in comparison with kristian)
 
@@ -464,7 +460,7 @@ posterior = unstd_posterior/sum(unstd_posterior)
 
 Mik_data= data.frame(grid=M_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Mik_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+ggplot(Mik_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")
 
 #same as josh, maybe a slight bit worse
 
@@ -495,7 +491,7 @@ posterior = unstd_posterior/sum(unstd_posterior)
 
 Ric_data= data.frame(grid=p_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Ric_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of water")+ ylab("posterior probability")
+ggplot(Ric_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledger")+ ylab("posterior probability")
 
 #Riccardo shows a very average knowledge, but much below our prior (what we expect of our teacher)
 
