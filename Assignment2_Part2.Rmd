@@ -57,7 +57,7 @@ dens = 100
 p_grid = seq(from=0, to = 1, length.out = dens)
 
 #define prior
-prior = rep(1,100)
+prior = dnorm(p_grid, mean = 0.8, sd = 0.2)
 
 #compute/define likelihood at eah value in grid
 likelihood = dbinom(3, size=6, prob=p_grid)
@@ -96,7 +96,7 @@ dens = 100
 k_grid = seq(from=0, to = 1, length.out = dens)
 
 #define prior
-prior = rep(1,100)
+prior = dnorm(k_grid, mean = 0.8, sd = 0.2)
 
 #compute/define likelihood at eah value in grid
 likelihood = dbinom(2, size=2, prob=k_grid)
@@ -134,7 +134,7 @@ dens = 100
 J_grid = seq(from=0, to = 1, length.out = dens)
 
 #define prior
-prior = rep(1,100)
+prior = dnorm(J_grid, mean = 0.8, sd = 0.2)
 
 #compute/define likelihood at eah value in grid
 likelihood = dbinom(160, size=198, prob=J_grid)
@@ -172,7 +172,7 @@ dens = 100
 M_grid = seq(from=0, to = 1, length.out = dens)
 
 #define prior
-prior = rep(1,100)
+prior = dnorm(M_grid, mean = 0.8, sd = 0.2)
 
 #compute/define likelihood at eah value in grid
 likelihood = dbinom(66, size=132, prob=M_grid)
