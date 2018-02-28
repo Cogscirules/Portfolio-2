@@ -85,7 +85,7 @@ simplehist(plot1)
 
 Ric_data= data.frame(grid=p_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Ric_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")+ylim(0,1)
+ric = ggplot(Ric_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")+ylim(0,1)
 
 
 
@@ -123,7 +123,7 @@ simplehist(plot2)
 
 Kri_data= data.frame(grid=k_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Kri_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")+ylim(0,1)
+kri = ggplot(Kri_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")+ylim(0,1)
 
 
 
@@ -161,7 +161,7 @@ simplehist(plot3)
 
 Jos_data= data.frame(grid=J_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Jos_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")+ylim(0,1)
+jos = ggplot(Jos_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")+ylim(0,1)
 
 
 
@@ -199,7 +199,15 @@ simplehist(plot4)
 
 Mik_data= data.frame(grid=M_grid,posterior=posterior,prior=prior,likelihood=likelihood)
 
-ggplot(Mik_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior/dens),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")+ylim(0,1)
+mik = ggplot(Mik_data,aes(grid,posterior))+  geom_point()+geom_line()+theme_classic()+  geom_line(aes(grid,prior),color='red')+  xlab("probability of knowledge")+ ylab("posterior probability")+ylim(0,1)
+
+
+
+
+
+
+gridExtra::grid.arrange(ric, kri, jos, mik)
+
 
 
 ```
